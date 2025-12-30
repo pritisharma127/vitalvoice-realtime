@@ -11,6 +11,9 @@ Lightweight realtime proxy and web client for ElevenLabs ConvAI — designed for
 - Client React app with an `/admin` route for monitoring
 - Simple map and distance endpoints backed by Google Maps
 
+## Architecture
+![Alt text](./assets/VitalVoice-Architecture_2.png)
+
 ## Repo Layout
 
 - `server/` — Node/Express WebSocket proxy and API (`index.js`)
