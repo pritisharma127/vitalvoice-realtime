@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Monitor</title>
+  <script>
+    (function () {
+      console.log('[CacheFix] Initiating Deep Cleansing...');
+
+      // 1. Storage Wipe
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 2. Service Worker Wipe
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+          for (let reg of regs) { reg.unregister(); console.log('[CacheFix] Unregistered SW'); }
+        });
+      }
+
+      // 3. Cache API Wipe
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          for (let name of names) caches.delete(name);
+          console.log('[CacheFix] Cleared Cache API');
+        });
+      }
+
+      // 4. Cookie Wipe (Simple)
+      document.cookie.split(";").forEach(function (c) {
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+
+      console.log('[CacheFix] Deep Cleansing Complete.');
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module">
+    // Direct cache-busted import to bypass the "text/html" MIME cache poisoning
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = '/src/main.jsx?t=' + Date.now();
+    document.body.appendChild(script);
+  </script>
+</body>
+
+</html>
