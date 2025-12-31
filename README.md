@@ -14,6 +14,9 @@ Lightweight realtime proxy and web client for ElevenLabs ConvAI — designed for
 ## Architecture
 ![Alt text](./assets/VitalVoice-Architecture_2.png)
 
+## Elevenlabs Voice Agent Architecture
+![Alt text](./assets/VitalVoice-VoiceAI.png)
+
 ## Repo Layout
 
 - `server/` — Node/Express WebSocket proxy and API (`index.js`)
